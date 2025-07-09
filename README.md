@@ -14,6 +14,8 @@ App Frontend da Aplicação de Perguntas e Respostas com I.A desenvolvido durant
 - [TailwindCSS](https://tailwindcss.com/) > Extensão para o NextJS para estilização das páginas
 - [Shadcn](https://ui-v4.shadcn.com/) > Biblioteca de Componentes para o NextJS
 - [Lucide-React](https://lucide.dev/guide/packages/lucide-react) > Biblioteca de ícones
+- [Zod](https://zod.dev/) > Biblioteca para Validação de Esquemas TypeScript
+
 
 <br /><br />
 
