@@ -15,6 +15,7 @@ App Frontend da Aplicação de Perguntas e Respostas com I.A desenvolvido durant
 - [Shadcn](https://ui-v4.shadcn.com/) > Biblioteca de Componentes para o NextJS
 - [Lucide-React](https://lucide.dev/guide/packages/lucide-react) > Biblioteca de ícones
 - [Zod](https://zod.dev/) > Biblioteca para Validação de Esquemas TypeScript
+- [Ky](https://github.com/sindresorhus/ky) > Biblioteca HTTP para requisições à API
 
 
 <br /><br />
