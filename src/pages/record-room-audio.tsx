@@ -2,7 +2,6 @@
 import { useRef, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { VITE_API_URL } from '@/env'
 import { useUploadAudio } from '@/http/use-upload-audio'
 
 const isRecordingSupported =
