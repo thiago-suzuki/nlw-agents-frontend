@@ -48,3 +48,8 @@ VITE_API_URL=http://localhost:3333
 # development
 $ npm run dev
 ```
+
+<br /><br />
+
+## Link do Deploy
+https://agents-ia-nu.vercel.app/
