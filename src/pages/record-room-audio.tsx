@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { VITE_API_URL } from '@/env'
+import { useUploadAudio } from '@/http/use-upload-audio'
 
 const isRecordingSupported =
   !!navigator.mediaDevices &&
@@ -15,9 +16,16 @@ type RoomParams = {
 
 export function RecordRoomAudio() {
   const params = useParams<RoomParams>()
+
+  if (!params.roomId) {
+    return <Navigate replace to="/" />
+  }
+
   const [isRecording, setIsRecording] = useState(false)
   const recorder = useRef<MediaRecorder | null>(null)
   const intervalRef = useRef<NodeJS.Timeout>(null)
+
+  const { mutateAsync: uploadAudioData } = useUploadAudio(params.roomId)
 
   function stopRecording() {
     setIsRecording(false)
@@ -32,19 +40,7 @@ export function RecordRoomAudio() {
   }
 
   async function uploadAudio(audio: Blob) {
-    const formData = new FormData()
-
-    formData.append('file', audio, 'audio.webm')
-
-    const response = await fetch(
-      `${VITE_API_URL}/rooms/${params.roomId}/audio`,
-      {
-        method: 'POST',
-        body: formData,
-      }
-    )
-
-    const result = await response.json()
+    const result = await uploadAudioData(audio)
 
     console.log(result)
   }
@@ -95,10 +91,6 @@ export function RecordRoomAudio() {
 
       createRecorder(audio)
     }, 5000)
-  }
-
-  if (!params.roomId) {
-    return <Navigate replace to="/" />
   }
 
   return (

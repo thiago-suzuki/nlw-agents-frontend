@@ -2,27 +2,20 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { CreateQuestionRequest } from './types/create-question-request'
 import type { CreateQuestionResponse } from './types/create-question-response'
 import type { GetRoomQuestionsResponse } from './types/get-room-questions-response'
-import { VITE_API_URL } from '@/env'
+import { api } from './api-client'
 
 export function useCreateQuestion(roomId: string) {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: async (data: CreateQuestionRequest) => {
-      const response = await fetch(
-        `${VITE_API_URL}/rooms/${roomId}/questions`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      )
+      const result: CreateQuestionResponse = await api.agents
+        .post(`rooms/${roomId}/questions`, {
+          json: data,
+        })
+        .json();
 
-      const result: CreateQuestionResponse = await response.json()
-
-      return result
+      return result;
     },
 
     // Executa no momento que for feita a chamada p/ API

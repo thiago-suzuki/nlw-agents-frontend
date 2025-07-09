@@ -1,24 +1,20 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { CreateRoomRequest } from "./types/create-room-request";
 import type { CreateRoomResponse } from "./types/create-room-response";
-import { VITE_API_URL } from "@/env";
+import { api } from "./api-client";
 
 export function useCreateRoom() {
     const queryClient = useQueryClient()
 
     return useMutation({
         mutationFn: async (data: CreateRoomRequest) => {
-            const response = await fetch(`${VITE_API_URL}/rooms`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
+            const result: CreateRoomResponse = await api.agents
+            .post('rooms', {
+                json: data,
             })
+            .json();
 
-            const result: CreateRoomResponse = await response.json()
-
-            return result
+            return result;
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['get-rooms'] })
